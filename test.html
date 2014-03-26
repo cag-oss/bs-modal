@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <script src="http://www.polymer-project.org/platform.js"></script>
+        <script src="http://www.polymer-project.org/polymer.js"></script>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link rel="import" href="bs-modal.html">
+    </head>
+    <body>
+       <polymer-element name="test-bed" attributes="">
+           <template>
+               <bs-modal open="{{ dialogOpen }}" on-backgroundtap="{{ closeDialog }}">
+                    <div class="modal-header">
+                        <button on-tap="{{ closeDialog }}" type="button" class="close" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">
+                            Modal Title
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <h1>Modal Body</h1>
+                    </div> 
+                    <div class="modal-footer">
+                        <button type="button" on-tap="{{ closeDialog }}" class="btn btn-default">Close</button>
+                        <button type="button" on-tap="{{ closeDialog }}" class="btn btn-primary">Save changes</button>
+                    </div>
+            
+                </bs-modal>
+                <button on-tap="{{ open }}" class="btn btn-default">Open</button>
+           </template>
+           <script>
+               Polymer('test-bed', {
+                   // element is fully prepared
+                   ready: function() {				
+               
+                   },
+                    open: function () {
+                        this.dialogOpen = true;
+                    },
+                    closeDialog: function () {
+                        this.dialogOpen = false;
+                    }
+
+               });
+
+           </script>
+       </polymer-element> 
+       <test-bed></test-bed> 
+    </body>
+</html>
