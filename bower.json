@@ -1,0 +1,23 @@
+{
+    "name": "bs-modal",
+    "version": "0.0.0",
+    "description": "bootstrap styled modal in polymer",
+    "authors": [
+        "Chris Gallo"
+    ],
+    "license": "MIT",
+    "main": "bs-modal.html",
+    "keywords": [
+        "polymer",
+        "web-components"
+    ],
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components"
+    ],
+    "dependencies": {
+        "platform": "Polymer/platform#~0.2.0",
+        "polymer": "Polymer/polymer#~0.2.0"
+    }
+}
