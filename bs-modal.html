@@ -1,0 +1,83 @@
+<polymer-element name="bs-modal" attributes="open">
+  <template>
+    <div id="cont" on-tap="{{backgroundTap}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >
+  		<div on-tap="{{modalTap}}" class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<content></content>
+    		</div>
+  		</div>
+	</div>
+    
+  </template>
+  <script>
+    Polymer('bs-modal', {
+          //applyAuthorStyles: true,
+          //resetStyleInheritance: true,
+          open: false,            
+          _transEndEvents: 'webkitTransitionEnd,otransitionend,oTransitionEnd,msTransitionEnd,transitionend',
+          openChanged: function () {
+                
+                if (this.open) {                  
+                      // backdrop
+                      var body = document.querySelector("body");            
+                      var backdrop = this._backdrop = document.createElement("div");
+                      backdrop.setAttribute('on-tap', '{{backdropTap}}');
+                      backdrop.className = "modal-backdrop fade";
+                      backdrop.addEventListener('click', this.backdropTap);
+                      body.appendChild(backdrop);
+                      // force reflow
+                      backdrop.offsetWidth;
+                      backdrop.classList.add("in");
+                      var finish = this._backdropTransDone.bind(this);
+                      this._transEndEvents.split(",").forEach(function (transName){
+                            backdrop.addEventListener(transName, finish);           
+                      });
+                } else {                  
+                      var container = this.$.cont;
+                      container.classList.remove("in");
+                      container.setAttribute('aria-hidden', true);
+                }
+
+          },
+         
+          _backdropTransDone: function () {
+                var container = this.$.cont;
+                if (this.open) {
+                      container.style.display = 'block'; 
+                      // force reflow
+                      container.offsetWidth;
+                      container.classList.add("in");
+                      container.setAttribute('aria-hidden', false);       
+                      document.body.classList.add("modal-open");
+                } else {
+                      this._backdrop.parentNode.removeChild(this._backdrop);
+                      this._backdrop = null;
+                      document.body.classList.remove("modal-open");
+                }
+                    
+          },
+          
+          _containerTransDone: function () {
+                if (!this.open) {
+                      this.$.cont.style.display = 'none';
+                      this._backdrop.classList.remove('in');                  
+                }
+          },     
+          backgroundTap: function () {
+                this.fire('backgroundtap');
+          },
+          modalTap: function (e) {
+                e.stopPropagation();
+          },
+          // element is fully prepared
+          ready: function(){
+                var container = this.$.cont;
+                var finish = this._containerTransDone.bind(this);
+                this._transEndEvents.split(",").forEach(function (transName){
+                      container.addEventListener(transName, finish);           
+                });
+          }
+         
+    });
+  </script>
+</polymer-element>
