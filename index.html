@@ -4,6 +4,11 @@
         <script src="http://www.polymer-project.org/polymer.js"></script>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="import" href="bs-modal.html">
+        <style>
+            body {
+                margin: 10px;
+            }
+        </style>
     </head>
     <body>
        <polymer-element name="test-bed" attributes="">
@@ -24,7 +29,12 @@
                     </div>
             
                 </bs-modal>
-                <button on-tap="{{ open }}" class="btn btn-default">Open</button>
+                <h2>Polymer-Bootstrap modal example</h2>
+                This is meant to work with vanilla versions of browsers, i.e. no strict shadowDOM enforcement.
+                In other words, this relies on bootstrap global styles bleeding through to our web components.
+                <br/>
+                <br/>
+                <button on-tap="{{ open }}" class="btn btn-default">Open Dialog</button>
            </template>
            <script>
                Polymer('test-bed', {
